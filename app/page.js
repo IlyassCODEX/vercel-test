@@ -70,20 +70,24 @@ export default function Home() {
             </div>
 
             <div>
-              <h2 className="font-medium">Technologies</h2>
-              {info.technologies?.length ? (
-                <ul className="list-disc pl-6">
-                  {info.technologies.map((t, i) => (
-                    <li key={i}>
-                      <span className="font-semibold">{t.name}</span>
-                      <span className="ml-2 text-gray-600">({t.category})</span>
-                      <span className="ml-2 text-gray-500">score {t.score}</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-gray-500">No strong matches.</p>
-              )}
+              <h2 className="font-medium mt-4">Technologies Detected</h2>
+                  {info.technologies?.length ? (
+                    <ul className="list-disc pl-6">
+                      {info.technologies.map((app, i) => (
+                        <li key={i} className="break-words">
+                          <span className="font-semibold">{app.app}</span>
+                          {app.version && <span className="ml-2">v{app.version}</span>}
+                          {app.categories?.length && (
+                            <span className="ml-2 text-gray-600">
+                              ({app.categories.join(", ")})
+                            </span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-gray-500">No technologies detected.</p>
+                  )}
             </div>
           </div>
         )}
