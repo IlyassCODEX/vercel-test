@@ -1,0 +1,221 @@
+[
+  {
+    "name": "WordPress",
+    "category": "CMS",
+    "rules": [
+      { "type": "html", "pattern": "wp-content", "weight": 80 },
+      { "type": "header", "key": "x-powered-by", "pattern": "wordpress", "weight": 60 }
+    ]
+  },
+  {
+    "name": "Drupal",
+    "category": "CMS",
+    "rules": [
+      { "type": "html", "pattern": "drupal-settings-json", "weight": 80 }
+    ]
+  },
+  {
+    "name": "Joomla",
+    "category": "CMS",
+    "rules": [
+      { "type": "html", "pattern": "content=\\"Joomla", "weight": 80 }
+    ]
+  },
+  {
+    "name": "Shopify",
+    "category": "E-commerce",
+    "rules": [
+      { "type": "html", "pattern": "cdn.shopify.com", "weight": 90 }
+    ]
+  },
+  {
+    "name": "Magento",
+    "category": "E-commerce",
+    "rules": [
+      { "type": "html", "pattern": "mage-cache-storage", "weight": 80 }
+    ]
+  },
+  {
+    "name": "WooCommerce",
+    "category": "E-commerce",
+    "rules": [
+      { "type": "html", "pattern": "woocommerce", "weight": 80 }
+    ]
+  },
+  {
+    "name": "Squarespace",
+    "category": "CMS",
+    "rules": [
+      { "type": "html", "pattern": "squarespace", "weight": 80 }
+    ]
+  },
+  {
+    "name": "Wix",
+    "category": "CMS",
+    "rules": [
+      { "type": "html", "pattern": "wix.com", "weight": 80 }
+    ]
+  },
+  {
+    "name": "Google Web Server (GWS)",
+    "category": "Server",
+    "rules": [
+      { "type": "header", "key": "server", "pattern": "^gws", "weight": 90 }
+    ]
+  },
+  {
+    "name": "Apache",
+    "category": "Server",
+    "rules": [
+      { "type": "header", "key": "server", "pattern": "apache", "weight": 90 }
+    ]
+  },
+  {
+    "name": "Nginx",
+    "category": "Server",
+    "rules": [
+      { "type": "header", "key": "server", "pattern": "nginx", "weight": 90 }
+    ]
+  },
+  {
+    "name": "LiteSpeed",
+    "category": "Server",
+    "rules": [
+      { "type": "header", "key": "server", "pattern": "litespeed", "weight": 90 }
+    ]
+  },
+  {
+    "name": "Cloudflare",
+    "category": "CDN/WAF",
+    "rules": [
+      { "type": "header", "key": "server", "pattern": "cloudflare", "weight": 90 },
+      { "type": "header", "key": "cf-ray", "pattern": ".*", "weight": 70 }
+    ]
+  },
+  {
+    "name": "Akamai",
+    "category": "CDN",
+    "rules": [
+      { "type": "header", "key": "server", "pattern": "akamai", "weight": 90 }
+    ]
+  },
+  {
+    "name": "Fastly",
+    "category": "CDN",
+    "rules": [
+      { "type": "header", "key": "x-served-by", "pattern": "fastly", "weight": 80 }
+    ]
+  },
+  {
+    "name": "Netlify",
+    "category": "Hosting",
+    "rules": [
+      { "type": "header", "key": "server", "pattern": "netlify", "weight": 80 }
+    ]
+  },
+  {
+    "name": "Vercel",
+    "category": "Hosting",
+    "rules": [
+      { "type": "header", "key": "x-vercel-id", "pattern": ".*", "weight": 90 }
+    ]
+  },
+  {
+    "name": "Heroku",
+    "category": "Hosting",
+    "rules": [
+      { "type": "header", "key": "via", "pattern": "vegur", "weight": 80 }
+    ]
+  },
+  {
+    "name": "Firebase Hosting",
+    "category": "Hosting",
+    "rules": [
+      { "type": "header", "key": "server", "pattern": "firebase", "weight": 80 }
+    ]
+  },
+  {
+    "name": "React",
+    "category": "JavaScript Framework",
+    "rules": [
+      { "type": "html", "pattern": "data-reactroot", "weight": 90 }
+    ]
+  },
+  {
+    "name": "Angular",
+    "category": "JavaScript Framework",
+    "rules": [
+      { "type": "html", "pattern": "ng-version", "weight": 90 }
+    ]
+  },
+  {
+    "name": "Vue.js",
+    "category": "JavaScript Framework",
+    "rules": [
+      { "type": "html", "pattern": "vue.config", "weight": 80 }
+    ]
+  },
+  {
+    "name": "jQuery",
+    "category": "JavaScript Library",
+    "rules": [
+      { "type": "html", "pattern": "jquery", "weight": 70 }
+    ]
+  },
+  {
+    "name": "Google Analytics",
+    "category": "Analytics",
+    "rules": [
+      { "type": "html", "pattern": "www.google-analytics.com/analytics.js", "weight": 90 }
+    ]
+  },
+  {
+    "name": "Matomo",
+    "category": "Analytics",
+    "rules": [
+      { "type": "html", "pattern": "matomo.js", "weight": 80 }
+    ]
+  },
+  {
+    "name": "Hotjar",
+    "category": "Analytics/Heatmaps",
+    "rules": [
+      { "type": "html", "pattern": "static.hotjar.com", "weight": 80 }
+    ]
+  },
+  {
+    "name": "Stripe",
+    "category": "Payments",
+    "rules": [
+      { "type": "html", "pattern": "js.stripe.com", "weight": 90 }
+    ]
+  },
+  {
+    "name": "PayPal",
+    "category": "Payments",
+    "rules": [
+      { "type": "html", "pattern": "paypalobjects.com", "weight": 90 }
+    ]
+  },
+  {
+    "name": "Auth0",
+    "category": "Authentication",
+    "rules": [
+      { "type": "html", "pattern": "cdn.auth0.com", "weight": 90 }
+    ]
+  },
+  {
+    "name": "Okta",
+    "category": "Authentication",
+    "rules": [
+      { "type": "html", "pattern": "okta.com", "weight": 80 }
+    ]
+  },
+  {
+    "name": "GitHub Pages",
+    "category": "Hosting",
+    "rules": [
+      { "type": "header", "key": "server", "pattern": "GitHub.com", "weight": 80 }
+    ]
+  }
+]
