@@ -3,72 +3,109 @@ import { useState } from "react";
 
 export default function Home() {
   const [domain, setDomain] = useState("");
-  const [result, setResult] = useState(null);
+  const [info, setInfo] = useState(null);
+  const [subs, setSubs] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  async function handleSearch() {
+  async function scanTech() {
     if (!domain) return;
     setLoading(true);
-    setResult(null);
-
-    const res = await fetch(`/api/dns?domain=${domain}`);
+    setInfo(null);
+    const res = await fetch(`/api/tech?domain=${encodeURIComponent(domain)}`);
     const data = await res.json();
-    setResult(data);
+    setInfo(data);
+    setLoading(false);
+  }
+
+  async function scanSubs() {
+    if (!domain) return;
+    setLoading(true);
+    setSubs(null);
+    const res = await fetch(`/api/subdomains?domain=${encodeURIComponent(domain)}`);
+    const data = await res.json();
+    setSubs(data);
     setLoading(false);
   }
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
-      <div className="w-full max-w-2xl bg-white border rounded-lg shadow-md p-6">
-        <h1 className="text-xl font-bold mb-4 text-center">
-          🔍 Subdomain & DNS Lookup
+      <div className="w-full max-w-3xl bg-white border rounded-lg shadow p-6 space-y-6">
+        <h1 className="text-xl font-semibold text-center">
+          OSINT Scanner (Techs, IPs & Subdomains)
         </h1>
 
-        <div className="flex gap-2 mb-4">
+        {/* Input + buttons */}
+        <div className="flex gap-2">
           <input
-            type="text"
+            className="flex-1 border rounded-md p-2"
             placeholder="example.com"
             value={domain}
             onChange={(e) => setDomain(e.target.value)}
-            className="flex-1 border p-2 rounded-md"
           />
           <button
-            onClick={handleSearch}
+            onClick={scanTech}
             disabled={loading}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+            className="px-4 py-2 rounded-md bg-black text-white"
           >
-            {loading ? "Searching..." : "Search"}
+            {loading ? "..." : "Scan Tech/IP"}
+          </button>
+          <button
+            onClick={scanSubs}
+            disabled={loading}
+            className="px-4 py-2 rounded-md bg-gray-700 text-white"
+          >
+            {loading ? "..." : "Find Subdomains"}
           </button>
         </div>
 
-        {result && (
+        {/* Results: Tech/IP */}
+        {info && (
           <div className="space-y-4 text-sm">
             <div>
-              <h2 className="font-semibold mb-1">Domain:</h2>
-              <p className="break-words">{result.domain}</p>
+              <h2 className="font-medium">Resolved IPs</h2>
+              <div className="bg-gray-100 rounded p-2">
+                <div><span className="font-mono">A</span>: {info.ips?.A?.join(", ") || "—"}</div>
+                <div><span className="font-mono">AAAA</span>: {info.ips?.AAAA?.join(", ") || "—"}</div>
+              </div>
             </div>
 
             <div>
-              <h2 className="font-semibold mb-1">DNS Records:</h2>
-              <pre className="bg-gray-100 p-3 rounded-md overflow-x-auto text-xs">
-                {JSON.stringify(result.dnsRecords, null, 2)}
-              </pre>
-            </div>
-
-            <div>
-              <h2 className="font-semibold mb-1">Subdomains:</h2>
-              {result.subdomains.length > 0 ? (
-                <ul className="list-disc pl-6 space-y-1">
-                  {result.subdomains.slice(0, 30).map((sub, idx) => (
-                    <li key={idx} className="break-words">
-                      {sub}
+              <h2 className="font-medium">Technologies</h2>
+              {info.technologies?.length ? (
+                <ul className="list-disc pl-6">
+                  {info.technologies.map((t, i) => (
+                    <li key={i}>
+                      <span className="font-semibold">{t.name}</span>
+                      <span className="ml-2 text-gray-600">({t.category})</span>
+                      <span className="ml-2 text-gray-500">score {t.score}</span>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p className="text-gray-500">No subdomains found.</p>
+                <p className="text-gray-500">No strong matches.</p>
               )}
             </div>
+          </div>
+        )}
+
+        {/* Results: Subdomains */}
+        {subs && (
+          <div className="space-y-2 text-sm">
+            <h2 className="font-medium">Discovered Subdomains</h2>
+            {subs.subdomains?.length ? (
+              <ul className="list-disc pl-6">
+                {subs.subdomains.map((s, i) => (
+                  <li key={i}>
+                    <span className="font-mono">{s.subdomain}</span>
+                    {s.ips?.length > 0 && (
+                      <span className="ml-2 text-gray-500">→ {s.ips.join(", ")}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-gray-500">No common subdomains found.</p>
+            )}
           </div>
         )}
       </div>
