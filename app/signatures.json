@@ -15,13 +15,6 @@
     ]
   },
   {
-    "name": "Joomla",
-    "category": "CMS",
-    "rules": [
-      { "type": "html", "pattern": "content=\\"Joomla", "weight": 80 }
-    ]
-  },
-  {
     "name": "Shopify",
     "category": "E-commerce",
     "rules": [
@@ -167,55 +160,6 @@
     "category": "Analytics",
     "rules": [
       { "type": "html", "pattern": "www.google-analytics.com/analytics.js", "weight": 90 }
-    ]
-  },
-  {
-    "name": "Matomo",
-    "category": "Analytics",
-    "rules": [
-      { "type": "html", "pattern": "matomo.js", "weight": 80 }
-    ]
-  },
-  {
-    "name": "Hotjar",
-    "category": "Analytics/Heatmaps",
-    "rules": [
-      { "type": "html", "pattern": "static.hotjar.com", "weight": 80 }
-    ]
-  },
-  {
-    "name": "Stripe",
-    "category": "Payments",
-    "rules": [
-      { "type": "html", "pattern": "js.stripe.com", "weight": 90 }
-    ]
-  },
-  {
-    "name": "PayPal",
-    "category": "Payments",
-    "rules": [
-      { "type": "html", "pattern": "paypalobjects.com", "weight": 90 }
-    ]
-  },
-  {
-    "name": "Auth0",
-    "category": "Authentication",
-    "rules": [
-      { "type": "html", "pattern": "cdn.auth0.com", "weight": 90 }
-    ]
-  },
-  {
-    "name": "Okta",
-    "category": "Authentication",
-    "rules": [
-      { "type": "html", "pattern": "okta.com", "weight": 80 }
-    ]
-  },
-  {
-    "name": "GitHub Pages",
-    "category": "Hosting",
-    "rules": [
-      { "type": "header", "key": "server", "pattern": "GitHub.com", "weight": 80 }
     ]
   }
 ]
