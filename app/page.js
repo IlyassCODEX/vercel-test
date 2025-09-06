@@ -18,35 +18,57 @@ export default function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-100 text-gray-800 p-6">
-      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-lg">
-        <h1 className="text-2xl font-bold mb-4">🔍 Subdomain & DNS Lookup</h1>
-        <input
-          type="text"
-          placeholder="example.com"
-          value={domain}
-          onChange={(e) => setDomain(e.target.value)}
-          className="w-full p-3 border rounded-xl mb-4"
-        />
-        <button
-          onClick={handleSearch}
-          disabled={loading}
-          className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition w-full"
-        >
-          {loading ? "Searching..." : "Search"}
-        </button>
+    <main className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
+      <div className="w-full max-w-2xl bg-white border rounded-lg shadow-md p-6">
+        <h1 className="text-xl font-bold mb-4 text-center">
+          🔍 Subdomain & DNS Lookup
+        </h1>
+
+        <div className="flex gap-2 mb-4">
+          <input
+            type="text"
+            placeholder="example.com"
+            value={domain}
+            onChange={(e) => setDomain(e.target.value)}
+            className="flex-1 border p-2 rounded-md"
+          />
+          <button
+            onClick={handleSearch}
+            disabled={loading}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+          >
+            {loading ? "Searching..." : "Search"}
+          </button>
+        </div>
 
         {result && (
-          <div className="mt-6 text-left">
-            <h2 className="font-semibold">Domain: {result.domain}</h2>
-            <h3 className="mt-2 font-semibold">DNS Records:</h3>
-            <pre className="bg-gray-200 p-2 rounded">{JSON.stringify(result.dnsRecords, null, 2)}</pre>
-            <h3 className="mt-2 font-semibold">Subdomains:</h3>
-            <ul className="list-disc pl-6">
-              {result.subdomains.slice(0, 20).map((sub, idx) => (
-                <li key={idx}>{sub}</li>
-              ))}
-            </ul>
+          <div className="space-y-4 text-sm">
+            <div>
+              <h2 className="font-semibold mb-1">Domain:</h2>
+              <p className="break-words">{result.domain}</p>
+            </div>
+
+            <div>
+              <h2 className="font-semibold mb-1">DNS Records:</h2>
+              <pre className="bg-gray-100 p-3 rounded-md overflow-x-auto text-xs">
+                {JSON.stringify(result.dnsRecords, null, 2)}
+              </pre>
+            </div>
+
+            <div>
+              <h2 className="font-semibold mb-1">Subdomains:</h2>
+              {result.subdomains.length > 0 ? (
+                <ul className="list-disc pl-6 space-y-1">
+                  {result.subdomains.slice(0, 30).map((sub, idx) => (
+                    <li key={idx} className="break-words">
+                      {sub}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-gray-500">No subdomains found.</p>
+              )}
+            </div>
           </div>
         )}
       </div>
